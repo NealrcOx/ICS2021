@@ -2,7 +2,6 @@
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
 #include "nemu.h"
-
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -80,7 +79,8 @@ static int cmd_help(char *args) {
 static int cmd_si(char *args) {
   /* extract the first argument */
   char *arg = strtok(NULL, " ");
-  uint64_t n;
+  int  n = 0;
+  int  i;
   char ch;
 
   if (arg == NULL) {
@@ -102,8 +102,9 @@ static int cmd_si(char *args) {
 	       n = 1;
        }
        cpu_exec(n);
-       return 0;
   }
+  return 0;
+}
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
