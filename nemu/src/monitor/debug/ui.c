@@ -37,6 +37,7 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_help(char *args);
+static int cmd_si(char *args);
 
 static struct {
   char *name;
@@ -75,7 +76,7 @@ static int cmd_help(char *args) {
   }
   return 0;
 }
-
+//archieve the si command
 static int cmd_si(char *args) {
   /* extract the first argument */
   char *arg = strtok(NULL, " ");
