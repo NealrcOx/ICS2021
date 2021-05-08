@@ -93,8 +93,8 @@ static int cmd_si(char *args) {
        while (*arg != '\0'){
 	       ch = *arg++;
 	       if(ch < '0' || ch > '9'){
-		       printf("the N is wrong!\n");
-		       return 0;
+	      		n = -1;
+		       break;	
 	       }
 	       n = n * 10 + (ch - '0');
        }
