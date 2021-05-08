@@ -80,14 +80,15 @@ static int cmd_si(char *args) {
   /* extract the first argument */
   char *arg = strtok(NULL, " ");
   int  n = 0;
-  int  i;
+//  int  i;
   char ch;
 
   if (arg == NULL) {
     /* no argument given */
-    for (i = 0; i < NR_CMD; i ++) {
-      printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
-    }
+/*    for (i = 0; i < NR_CMD; i ++) {
+      printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description); */
+	  n = 1;
+	  cpu_exec(n);
   }
   else {
        while (*arg != '\0'){
