@@ -48,7 +48,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-
+  { "si", "singel step run", cmd_si },
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -75,6 +75,34 @@ static int cmd_help(char *args) {
   }
   return 0;
 }
+
+static int cmd_si(char *args) {
+  /* extract the first argument */
+  char *arg = strtok(NULL, " ");
+  uint64_t n;
+  char ch;
+
+  if (arg == NULL) {
+    /* no argument given */
+    for (i = 0; i < NR_CMD; i ++) {
+      printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
+    }
+  }
+  else {
+       while (*arg != '\0'){
+	       ch = *arg++;
+	       if(ch < '0' || ch > '9'){
+		       printf("the N is wrong!\n");
+		       return 0;
+	       }
+	       n = n * 10 + (ch - '0');
+       }
+       if(n == 0){
+	       n = 1;
+       }
+       cpu_exec(n);
+       return 0;
+  }
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
