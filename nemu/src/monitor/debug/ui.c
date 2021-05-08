@@ -6,6 +6,8 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+#include <string.h>
+
 void cpu_exec(uint64_t);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
@@ -36,7 +38,10 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_help(char *args);
+
 static int cmd_si(char *args);
+
+static int cmd_info(char *args);
 
 static struct {
   char *name;
@@ -49,6 +54,7 @@ static struct {
 
   /* TODO: Add more commands */
   { "si", "singel step run", cmd_si },
+  { "info", "display all register", cmd_info },
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -106,6 +112,41 @@ static int cmd_si(char *args) {
   }
   return 0;
 }
+//achieve the info command
+static int cmd_info(char *args) {
+  /* extract the first argument */
+  char *arg = strtok(NULL, " ");
+  if(arg == NULL){
+	  return 0;
+  }
+  else if(strcmp(arg, "r"){
+	for(int j = 0 ; j < 3 ; j++){
+         for(int i = 0 ; i < 8 ; i++){
+	 	if(j == 0){
+			printf("%s:\t%8x\t%3d", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
+		  }
+		  if(j == 1){
+			printf("%s:\t%8x\t%3d", regsl[i], cpu.gpr[i]._16, cpu.gpr[i]._16);
+			}
+	              if(j == 2){
+			printf("%s:\t%8x\t%3d", regsl[i], cpu.gpr[i]._8, cpu.gpr[i]._8);
+			}
+			}
+			printf("\n");
+			}
+			return 0;
+			}
+
+  else if(strcmp(arg, "w"){
+	  printf("pa1.3 will achieve this commad");
+	  return 0;
+	  }
+  else{
+  	printf("eg:<info r> or <info w>\n");
+	return 0;
+	}
+	return 0;
+  }
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
