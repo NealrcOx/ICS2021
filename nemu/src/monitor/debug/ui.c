@@ -164,9 +164,10 @@ static int cmd_x(char *args) {
 		return 0;
 	}
 		int n = atoi(arg1);  //atoi():this function can make string to number, 
+		printf("%0x-10x %d\n", addr, n);
 		// n is the address steps
-		int i;
-		for(i = 0 ; i < n ; i+=4){	//the address is 4 bytes
+//		int i;
+//		for(i = 0 ; i < n ; i+=4){	//the address is 4 bytes
 	/*		if(i + 4 < n){
 			printf("0x%-10x : 0x%-15x\n0x%-15x\n0x%-15x\n0x%-15x\n",addr, vaddr_read(addr, 4),vaddr_read(addr + 4, 4), vaddr_read(addr + 8 , 4), vaddr_read(addr + 12, 4));
 		}
@@ -180,8 +181,8 @@ static int cmd_x(char *args) {
 			printf("\n");
 		}
 			addr += 16; */
-			printf("0x%-10x : 0x%-10x\n",addr, paddr_read(addr+ (4 * i), 4));
-		}
+//			printf("0x%-10x : 0x%-10x\n",addr, paddr_read(addr+ (4 * i), 4));
+//		}
 			
 	//	}
 
