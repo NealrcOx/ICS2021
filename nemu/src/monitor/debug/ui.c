@@ -135,7 +135,7 @@ static int cmd_info(char *args) {
 		      }
 			}
   else if(!strcmp(arg, "w")){
-	  printf("pa1.3 will achieve this commad");
+	  printf("pa1.3 will achieve this commad\n");
 	  }
   else{
   	printf("eg:<info r> or <info w>\n");
