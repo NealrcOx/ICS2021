@@ -163,10 +163,10 @@ static int cmd_x(char *args) {
 //	vaddr_t byteAddr = addr;
 	printf("address        Dword block ...  Byte sequence \n");
 	for(int i = 0 ; i < n ; i++) {
-		printf("0x00%-x\t0x%-x\t... ",addr + 4 * i,vaddr_read(addr + 4 * i, 4));
+		printf("0x00%-x\t0x%-x ... ",addr + 4 * i,vaddr_read(addr + 4 * i, 4));
 		vaddr_t byteAddr = addr + 4 * i;
 		for(int j = 0 ; j < 4 ; j++) {
-			printf("%2x ", vaddr_read(byteAddr, 1));
+			printf("%2x ", vaddr_read(byteAddr + j, 1));
 		}
 		printf("\n");
 	}
