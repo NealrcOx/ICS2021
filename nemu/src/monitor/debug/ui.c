@@ -157,9 +157,9 @@ static int cmd_x(char *args) {
 		printf("Must input two argument!\n");
 		return 0;
 	}
-	bool exprFlag = true;  //this varible be used by uint32_t expr(char *, bool * );
-	paddr_t addr = expr(arg2, & exprFlag);
-	if(exprFlag == false){
+	bool success = true;  //this varible be used by uint32_t expr(char *, bool * );
+	paddr_t addr = expr(arg2, & success);
+	if(success == false){
 		printf("Wrong expr!\n");
 		return 0;
 	}
