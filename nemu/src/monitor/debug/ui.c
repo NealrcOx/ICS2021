@@ -157,35 +157,18 @@ static int cmd_x(char *args) {
 		printf("Must input two argument!\n");
 		return 0;
 	}
-	bool success = true;  //this varible be used by uint32_t expr(char *, bool * );
-	paddr_t addr = expr(arg2, & success);
-	if(success == false){
-		printf("Wrong expr!\n");
-		return 0;
+	int n = atoi(arg1);
+	vaddr_t addr;
+	sscanf(arg2,"%x",& addr);
+	vaddr_t byteAddr = addr;
+	printf("address    Dword block ... Byte sequence \n");
+	for(int i = 0 ; i < n ; i++) {
+		printf("%-x\t%-x\t...",addr,vaddr_read(addr, 4));
+		for(int j = 0 ; j < 4 ; j++) {
+			printf("%2x ", vaddr_read(byteAddr, 1));
+		}
+		printf("\n");
 	}
-		int n = atoi(arg1);  //atoi():this function can make string to number, 
-		printf("%0x-10x %d\n", addr, n);
-		// n is the address steps
-//		int i;
-//		for(i = 0 ; i < n ; i+=4){	//the address is 4 bytes
-	/*		if(i + 4 < n){
-			printf("0x%-10x : 0x%-15x\n0x%-15x\n0x%-15x\n0x%-15x\n",addr, vaddr_read(addr, 4),vaddr_read(addr + 4, 4), vaddr_read(addr + 8 , 4), vaddr_read(addr + 12, 4));
-		}
-		else { 
-			int j;
-			printf("0x%-10x : ", addr);
-			for(j = 0 ; j < n ; j++) {
-				printf("0x%-15x", vaddr_read(addr, 4));
-				addr += 4;
-			}
-			printf("\n");
-		}
-			addr += 16; */
-//			printf("0x%-10x : 0x%-10x\n",addr, paddr_read(addr+ (4 * i), 4));
-//		}
-			
-	//	}
-
      return 0;
 }
 
