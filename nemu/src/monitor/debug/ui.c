@@ -166,7 +166,7 @@ static int cmd_x(char *args) {
 		printf("0x00%-x\t0x%-x ... ",addr + 4 * i,vaddr_read(addr + 4 * i, 4));
 		vaddr_t byteAddr = addr + 4 * i;
 		for(int j = 0 ; j < 4 ; j++) {
-			printf("%2x ", vaddr_read(byteAddr + j, 1));
+			printf("%02x ", vaddr_read(byteAddr + j, 1));
 		}
 		printf("\n");
 	}
