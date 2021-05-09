@@ -8,6 +8,7 @@
 
 #include <string.h>
 //#include <stdbool>
+//typedef enum _bool { false = 0, true = 1, } bool;
 
 void cpu_exec(uint64_t);
 
@@ -156,8 +157,8 @@ static int cmd_x(char *args) {
 		printf("Must input two argument!\n");
 		return 0;
 	}
-	bool exerFlag = true;  //this varible be used by uint32_t expr(char *, bool );
-	paddr_t addr = expr(arg2, &exprFlag);
+	bool exprFlag = true;  //this varible be used by uint32_t expr(char *, bool * );
+	paddr_t addr = expr(arg2, & exprFlag);
 	if(exprFlag == false){
 		printf("Wrong expr!\n");
 		return 0;
@@ -167,11 +168,11 @@ static int cmd_x(char *args) {
 		int i;
 		for(i = 0 ; i < n ; i+=4){	//the address is 4 bytes
 			if(i +4 < n){
-			printf("0x%-10x : 0x%-15x0x%-15x0x%-15x0x%-15x\n",addr, paddr_read(addr, 4),paddr_read(addr = 4, 4), paddr_read(addr + 8 , 4), paddr_read(addr + 12, 4));
+			printf("0x%-10x : 0x%-15x0x%-15x0x%-15x0x%-15x\n",addr, paddr_read(addr, 4),paddr_read(addr + 4, 4), paddr_read(addr + 8 , 4), paddr_read(addr + 12, 4));
 		}
 		else { 
 			int j;
-			printf("0x-10x : ", addr);
+			printf("0x%-10x : ", addr);
 			for(j = 0 ; j < n ; j++) {
 				printf("0x%-15x", paddr_read(addr, 4));
 				addr += 4;
