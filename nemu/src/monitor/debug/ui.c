@@ -167,8 +167,8 @@ static int cmd_x(char *args) {
 		// n is the address steps
 		int i;
 		for(i = 0 ; i < n ; i+=4){	//the address is 4 bytes
-			if(i +4 < n){
-			printf("0x%-10x : 0x%-15x0x%-15x0x%-15x0x%-15x\n",addr, paddr_read(addr, 4),paddr_read(addr + 4, 4), paddr_read(addr + 8 , 4), paddr_read(addr + 12, 4));
+			if(i + 4 < n){
+			printf("0x%-10x : 0x%-15x\n0x%-15x\n0x%-15x\n0x%-15x\n",addr, paddr_read(addr, 4),paddr_read(addr + 4, 4), paddr_read(addr + 8 , 4), paddr_read(addr + 12, 4));
 		}
 		else { 
 			int j;
