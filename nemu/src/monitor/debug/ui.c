@@ -117,33 +117,29 @@ static int cmd_info(char *args) {
   /* extract the first argument */
   char *arg = strtok(NULL, " ");
   if(arg == NULL){
+	  printf("Must input one argument!\n");
 	  return 0;
   }
-  else if(strcmp(arg, "r"){
-	for(int j = 0 ; j < 3 ; j++){
-         for(int i = 0 ; i < 8 ; i++){
-	 	if(j == 0){
-			printf("%s:\t%8x\t%3d", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
+  else if(! strcmp(arg, "r")){
+	 	for(int i = R_EAX ; i < R_EDI ; i++){
+			printf("%-10s:\t%-#15x\t%3u", regsl[i], reg_l(i), reg_l(i));
 		  }
-		  if(j == 1){
-			printf("%s:\t%8x\t%3d", regsl[i], cpu.gpr[i]._16, cpu.gpr[i]._16);
+		  printf("\n");
+		  for(int i = R_AX ; i < R_DI ; i++){
+			printf("%-10s:\t%-#15x\t%3u", regsw[i], reg_w(i), reg_w(i));
 			}
-	              if(j == 2){
-			printf("%s:\t%8x\t%3d", regsl[i], cpu.gpr[i]._8, cpu.gpr[i]._8);
-			}
+			printf("\n");
+	              for(int i = R_AL ; i < R_BH ; i++){
+			printf("%-10s:\t%-#15x\t%3u", regsb[i], reg_b(i), reg_b(i));
 			}
 			printf("\n");
 			}
-			return 0;
-			}
 
-  else if(strcmp(arg, "w"){
+  else if(!strcmp(arg, "w")){
 	  printf("pa1.3 will achieve this commad");
-	  return 0;
 	  }
   else{
   	printf("eg:<info r> or <info w>\n");
-	return 0;
 	}
 	return 0;
   }
