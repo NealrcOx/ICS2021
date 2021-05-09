@@ -7,6 +7,7 @@
 #include <readline/history.h>
 
 #include <string.h>
+//#include <stdbool>
 
 void cpu_exec(uint64_t);
 
@@ -43,6 +44,8 @@ static int cmd_si(char *args);
 
 static int cmd_info(char *args);
 
+static int cmd_x(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -55,6 +58,7 @@ static struct {
   /* TODO: Add more commands */
   { "si", "singel step run", cmd_si },
   { "info", "display all register", cmd_info },
+  { "x", "Evaluate the expr and print memeroy addressed from expr in hex", cmd_x },
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -142,6 +146,43 @@ static int cmd_info(char *args) {
 	}
 	return 0;
   }
+//achieve the cmd_x command
+
+static int cmd_x(char *args) {
+  /* extract the first argument */
+	char * arg1 = strtok(args, " ");
+	char * arg2 = strtok(NULL, " ");
+	if(arg1 == NULL || arg2 == NULL){
+		printf("Must input two argument!\n");
+		return 0;
+	}
+	bool exerFlag = true;  //this varible be used by uint32_t expr(char *, bool );
+	paddr_t addr = expr(arg2, &exprFlag);
+	if(exprFlag == false){
+		printf("Wrong expr!\n");
+		return 0;
+	}
+		int n = atoi(arg1);  //atoi():this function can make string to number, 
+		// n is the address steps
+		int i;
+		for(i = 0 ; i < n ; i+=4){	//the address is 4 bytes
+			if(i +4 < n){
+			printf("0x%-10x : 0x%-15x0x%-15x0x%-15x0x%-15x\n",addr, paddr_read(addr, 4),paddr_read(addr = 4, 4), paddr_read(addr + 8 , 4), paddr_read(addr + 12, 4));
+		}
+		else { 
+			int j;
+			printf("0x-10x : ", addr);
+			for(j = 0 ; j < n ; j++) {
+				printf("0x%-15x", paddr_read(addr, 4));
+				addr += 4;
+			}
+			printf("\n");
+		}
+			addr += 16;
+		}
+
+     return 0;
+}
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
