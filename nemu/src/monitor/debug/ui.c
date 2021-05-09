@@ -123,18 +123,17 @@ static int cmd_info(char *args) {
   else if(! strcmp(arg, "r")){
 	 	for(int i = R_EAX ; i < R_EDI ; i++){
 			printf("%-10s:\t%-#15x\t%3u", regsl[i], reg_l(i), reg_l(i));
-		  }
-		  printf("\n");
+		        printf("\n");
+		}
 		  for(int i = R_AX ; i < R_DI ; i++){
 			printf("%-10s:\t%-#15x\t%3u", regsw[i], reg_w(i), reg_w(i));
-			}
 			printf("\n");
+		  }
 	              for(int i = R_AL ; i < R_BH ; i++){
 			printf("%-10s:\t%-#15x\t%3u", regsb[i], reg_b(i), reg_b(i));
-			}
 			printf("\n");
+		      }
 			}
-
   else if(!strcmp(arg, "w")){
 	  printf("pa1.3 will achieve this commad");
 	  }
