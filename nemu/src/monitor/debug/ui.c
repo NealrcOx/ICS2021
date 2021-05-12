@@ -47,6 +47,8 @@ static int cmd_info(char *args);
 
 static int cmd_x(char *args);
 
+static int cmd_x(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -60,6 +62,7 @@ static struct {
   { "si", "singel step run", cmd_si },
   { "info", "display all register", cmd_info },
   { "x", "Evaluate the expr and print memeroy addressed from expr in hex", cmd_x },
+  { "p", "Solve the regular expr", cmd_p },
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -171,6 +174,11 @@ static int cmd_x(char *args) {
 		printf("\n");
 	}
      return 0;
+}
+
+//achieve the cmd_p command
+static int cmd_p(char *args){
+
 }
 
 void ui_mainloop(int is_batch_mode) {
