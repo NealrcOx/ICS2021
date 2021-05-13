@@ -71,22 +71,22 @@ typedef struct token {
 
 #define max_token_num 65536
 
-Token tokens[max_token_num];
-int nr_token;
+Token tokens[max_token_num];  //the tokens sum
+        int nr_token;
 
 typedef struct paren {
 	int left, right;
 } Paren;
 
-Paren  parens[max_token_num / 2];
-int nr_paren;
+Paren  parens[max_token_num / 2];   //you only can tell half tokens'parent sum
+        int nr_paren;
 
 static bool make_token(char *e) {
-  int position = 0;
-  int i;
-  regmatch_t pmatch;
+        int position = 0;
+        int i;
+        regmatch_t pmatch;
 
-  nr_token = 0;
+        nr_token = 0;
 
   while (e[position] != '\0') {
     /* Try all rules one by one. */
@@ -99,10 +99,9 @@ static bool make_token(char *e) {
             /*i, rules[i].regex, position, substr_len, substr_len, substr_start);*/
         position += substr_len;
 
-	if (substr_len >= 32)
-	{
-	  assert(0);
-	  return false;
+	if (substr_len >= 32)	{
+	    assert(0);
+	    return false;
 	}
 
         switch (rules[i].token_type) {
@@ -127,7 +126,7 @@ static bool make_token(char *e) {
     }
   }
 
-  //匹配括号
+  //tell the ( and )
   int stack[max_token_num];
   int top = 0;
   nr_paren = 0;
@@ -176,7 +175,7 @@ int main_op(int p, int q) {
 	  tokens[i].type != TK_UMINUS) {
 	continue;
       }
-      //在一对括号中吗？
+      //tell both in one ()?
       bool bInParens = false;
       for (int j = 0; j < nr_paren; j++) {
 	assert(check_parentheses(p, q) == false);
