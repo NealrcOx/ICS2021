@@ -203,7 +203,7 @@ int main_op(int p, int q) {
 	op = op_stack[i];
 	priority = -1;
       }
-      if ((tokens[op_stack[i]].type == TK_EQ || tokens[op_stack[i]].type == TK_NEOAQ) &&
+      if ((tokens[op_stack[i]].type == TK_EQ || tokens[op_stack[i]].type == TK_NEQ) &&
 	  priority > 0) {
 	op = op_stack[i];
 	priority = 0;
