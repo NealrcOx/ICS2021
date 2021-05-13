@@ -303,9 +303,11 @@ uint32_t eval(int p, int q) {
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': return val1 / val2;
+      case '%': return val1 % val2;
       case TK_EQ: return val1 == val2;
       case TK_NEQ: return val1 != val2;
       case TK_AND: return val1 && val2;
+      case TK_OR : return val1 || val2;
       default: Assert(0, "Unknown op type!");
     }
   }
@@ -349,6 +351,7 @@ bool check_expr(int p, int q) {
   }
   return false;
 }
+
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
@@ -361,7 +364,7 @@ uint32_t expr(char *e, bool *success) {
 	 int prey = i -1;
 	 while(prey >= 0 && tokens[prey].type == TK_NOTYPE)
 		 prey --;
-	 if(i == 0 || tokens[prey].type == '(' || tokens[prey].type == '+' || tokens[prey].type == '-'|| tokens[prey].type == '*' || tokens[prey].type == '/' || tokens[prey].type == TK_AND || tokens[prey].type == TK_EQ || tokens[prey].type == TK_NEQ) {
+	 if(i == 0 || tokens[prey].type == '(' || tokens[prey].type == '+' || tokens[prey].type == '-'|| tokens[prey].type == '*' || tokens[prey].type == '/' || tokens[prey].type == TK_AND || tokens[prey].type == TK_EQ || tokens[prey].type == TK_NEQ || tokens[prey].type == TK_OR) {
 		 if(tokens[i].type == '-') {
 			 tokens[i].type = TK_UMINUS;
 		 }
