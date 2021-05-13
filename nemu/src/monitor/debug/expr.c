@@ -141,13 +141,16 @@ static bool make_token(char *e) {
 	return false;
       }
       parens[nr_paren].left = stack[top - 1];
+
       parens[nr_paren].right = i;
+
       nr_paren++;
+
       stack[--top] = -1;
     }
   }
   if (top != 0) {
-    printf("number of left paren and right paren not equal\n");
+    printf("number of left paren '(' and right paren ')' not equal!\n");
     return false;
   }
 
@@ -170,6 +173,7 @@ int main_op(int p, int q) {
   for (int i = p; i <= q; i++) {
       if (tokens[i].type != '+' && tokens[i].type != '-' &&
 	  tokens[i].type != '*' && tokens[i].type != '/' &&
+	  tokens[i].type != '%' && tokens[i].type != TK_OR &&
 	  tokens[i].type != TK_EQ && tokens[i].type != TK_NEQ &&
 	  tokens[i].type != TK_AND && tokens[i].type != TK_DEREF &&
 	  tokens[i].type != TK_UMINUS) {
@@ -194,11 +198,12 @@ int main_op(int p, int q) {
   if (top > 0) {
     int priority = 4;
     for (int i = top - 1; i >= 0; i--) {
-      if (tokens[op_stack[i]].type == TK_AND && priority > -1) {
+      if ((tokens[op_stack[i]].type == TK_AND || tokens[op_stack[i]].type == TK_OR) &&
+          priority > -1) {
 	op = op_stack[i];
 	priority = -1;
       }
-      if ((tokens[op_stack[i]].type == TK_EQ || tokens[op_stack[i]].type == TK_NEQ) &&
+      if ((tokens[op_stack[i]].type == TK_EQ || tokens[op_stack[i]].type == TK_NEOAQ) &&
 	  priority > 0) {
 	op = op_stack[i];
 	priority = 0;
