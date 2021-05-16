@@ -7,6 +7,7 @@
 #include <readline/history.h>
 
 #include <string.h>
+
 //#include <stdbool>
 //typedef enum _bool { false = 0, true = 1, } bool;
 
@@ -49,6 +50,8 @@ static int cmd_x(char *args);
 
 static int cmd_p(char *args);
 
+static int cmd_w(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -63,6 +66,7 @@ static struct {
   { "info", "display all register", cmd_info },
   { "x", "Evaluate the expr and print memeroy addressed from expr in hex", cmd_x },
   { "p", "Solve the regular expr", cmd_p },
+  { "w", "Stop the programming when the value of expr changes", cmd_w},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -193,6 +197,26 @@ static int cmd_p(char *args){
 	}
 	return 0;
 }
+//achieve the cmd_w command
+static int cmd_w(char * args){
+	char * arg = args;
+	if(arg == NULL){
+		printf("Must input one argument!\n");
+		return 0;
+	}
+	bool success = true;
+	uint32_t val = expr(arg, &success);
+	if(!success){
+		printf("bad expr!\n");
+	}
+		WP * wp = new_wp();
+		wp->expr = (char *)malloc(strlen(arg) + 1);
+		strcpy(wp->expr, arg);
+		wp->expr[strlen(arg)] = 0;
+		wp->val = val;
+		return 0;
+}
+	
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
