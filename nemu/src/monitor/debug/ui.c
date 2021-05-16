@@ -13,6 +13,8 @@
 
 void cpu_exec(uint64_t);
 
+WP * new_wp();
+
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
   static char *line_read = NULL;
@@ -213,7 +215,7 @@ static int cmd_w(char * args){
 		wp->expr = (char *)malloc(strlen(arg) + 1);
 		strcpy(wp->expr, arg);
 		wp->expr[strlen(arg)] = 0;
-		wp->val = val;
+		wp->new_val = val;
 		return 0;
 }
 	
