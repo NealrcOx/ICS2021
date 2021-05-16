@@ -36,4 +36,23 @@ if(free_ == NULL){
 	return head;
 	}
 
-
+//free a watchpoint NO is n
+void free_wp(int n){
+	if(head->NO == n){
+		WP * wp = head->next;
+		head->next = free_;
+		free_ = head;
+		head = wp;
+		return ;
+	}
+	WP * pwt = NULL;
+	for(pwt = head ; pwt->next != NULL ; pwt = pwt->next){
+		if(pwt->next->NO == n){
+			WP * wp = pwt->next;
+			pwt->next = wp->next;
+			wp->next = free_;
+			free_ = wp;
+			return ;
+		}
+	}
+}
