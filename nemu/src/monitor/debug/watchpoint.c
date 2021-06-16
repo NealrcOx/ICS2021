@@ -59,6 +59,7 @@ int set_watchpoint(char *e){
 	int result = expr(e, &success);
 	if(success == false){
 		printf("Wrong Expr!\n");
+		assert(0);
 	}
 	WP *wp = new_wp();
 	printf("Set watchpoint #%d\n",wp -> NO);
