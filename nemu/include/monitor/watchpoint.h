@@ -13,5 +13,14 @@ typedef struct watchpoint {
   uint32_t old_val;
 
 } WP;
+//add define function for watchpoint setting
+
+int set_watchpoint(char *e);
+
+bool delete_watchpoint(int NO);
+
+void list_watchpoint(void);
+
+WP * scan_watchpoint(void);
 
 #endif
