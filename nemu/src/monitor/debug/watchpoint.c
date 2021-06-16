@@ -83,26 +83,31 @@ bool delete_watchpoint(int NO){
 void list_watchpoint(void){
 	if(head == NULL){
 		printf("There isn't no watchpoint!\n");
-		assert(0);
+		return ;
 	}
 	printf("No old value expr!\n");
 	WP * wp = head;
+	printf("Num	Type	Address		what\n");
 	for( ; wp != NULL ; wp = wp -> next){
-		printf("%d	Ox%08x %s\n",wp -> NO, wp -> old_val, wp -> expr);
+		printf("%d	hw watchpoint	Ox%08x %s\n",wp -> NO, wp -> old_val, wp -> expr);
 	}
 }
 // scan watchpoint
 WP * scan_watchpoint(void){
+//	bool change = false;
 	bool success;
 	WP *wp = head;
 	int result;
 	int eip_num;
 	for( ; wp != NULL ; wp = wp -> next){
+	//	bool success;
 		result = expr(wp -> expr, &success);
+
 		if(result != wp -> old_val){
 			wp -> new_val = result;
 			eip_num = expr("$eip", &success);
 			printf("Hit watchpoint %d at addrss Ox%08x\n",wp ->NO, eip_num);
+	//		change = true;
 			return wp;
 		}
 	}
