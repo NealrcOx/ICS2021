@@ -54,6 +54,8 @@ static int cmd_p(char *args);
 
 static int cmd_w(char *args);
 
+static int cmd_d(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -69,6 +71,7 @@ static struct {
   { "x", "Evaluate the expr and print memeroy addressed from expr in hex", cmd_x },
   { "p", "Solve the regular expr", cmd_p },
   { "w", "Stop the programming when the value of expr changes", cmd_w},
+  { "d", "Delete a watchpoint", cmd_d},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -149,7 +152,7 @@ static int cmd_info(char *args) {
 		      }
 			}
   else if(!strcmp(arg, "w")){
-	  printf("pa1.3 will achieve this commad\n");
+	  list_watchpint();
 	  }
   else{
   	printf("eg:<info r> or <info w>\n");
@@ -201,22 +204,13 @@ static int cmd_p(char *args){
 }
 //achieve the cmd_w command
 static int cmd_w(char * args){
-	char * arg = args;
-	if(arg == NULL){
-		printf("Must input one argument!\n");
-		return 0;
-	}
-	bool success = true;
-	uint32_t val = expr(arg, &success);
-	if(!success){
-		printf("bad expr!\n");
-	}
-		WP * wp = new_wp();
-		wp->expr = (char *)malloc(strlen(arg) + 1);
-		strcpy(wp->expr, arg);
-		wp->expr[strlen(arg)] = 0;
-		wp->new_val = val;
-		return 0;
+	return set_watchpoint(args);
+}
+//achieve teh cmd_d command
+static int cmd_d(char * args){
+	int point_num;
+	sscanf(args,"%d",&point_num);
+	return delete_watchpoint(point_num);
 }
 	
 
