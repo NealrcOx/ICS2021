@@ -152,7 +152,7 @@ static int cmd_info(char *args) {
 		      }
 			}
   else if(!strcmp(arg, "w")){
-	  list_watchpint();
+	  list_watchpoint();
 	  }
   else{
   	printf("eg:<info r> or <info w>\n");
