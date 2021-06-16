@@ -66,7 +66,7 @@ int set_watchpoint(char *e){
 	printf("expr = %s\n", wp -> expr);
 	wp -> old_val = result;
 	printf("old value = Ox%08x\n", wp -> old_val);
-	return 0;
+	return 1;
 }
 // delete watchpoint
 bool delete_watchpoint(int NO){
