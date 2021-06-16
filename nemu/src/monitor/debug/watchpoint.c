@@ -53,3 +53,57 @@ void free_wp(int n){
 	free_ = wp3;
 	}
 }
+// set watchpoint
+int set_watchpoint(char *e){
+	bool success;
+	int result = expr(e, &success);
+	if(success == false){
+		printf("Wrong Expr!\n");
+	}
+	WP *wp = new_wp();
+	printf("Set watchpoint #%d\n",wp -> NO);
+	strcpy(wp -> expr, e);
+	printf("expr = %s\n", wp -> expr);
+	wp -> old_val = result;
+	printf("old value = Ox%08x\n", wp -> old_val);
+	return 0;
+}
+// delete watchpoint
+bool delete_watchpoint(int NO){
+	if(head == NULL){
+		printf("There isn't no watchpoint set!\n");
+		return false;
+	}
+	free_wp(NO);
+	printf("Watchpoint %d deleted!\n",NO);
+	return true;
+}
+//list watchpoint
+void list_watchpoint(void){
+	if(head == NULL){
+		printf("There isn't no watchpoint!\n");
+		assert(0);
+	}
+	printf("No old value expr!\n");
+	WP * wp = head;
+	for( ; wp != NULL ; wp = wp -> next){
+		printf("%d	Ox%08x %s\n",wp -> NO, wp -> old_val, wp -> expr);
+	}
+}
+// scan watchpoint
+WP * scan_watchpoint(void){
+	bool success;
+	WP *wp = head;
+	int result;
+	int eip_num;
+	for( ; wp != NULL ; wp = wp -> next){
+		result = expr(wp -> expr, &success);
+		if(result != wp -> old_val){
+			wp -> new_val = result;
+			eip_num = expr("$eip", &success);
+			printf("Hit watchpoint %d at addrss Ox%08x\n",wp ->NO, eip_num);
+			return wp;
+		}
+	}
+	return NULL;
+}
